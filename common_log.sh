@@ -12,12 +12,12 @@ if [ -z "$COMMON_LOG_SH_SOURCED" ]; then
   COMMON_LOG_SH_SOURCED="Parsing common_log.sh"
 
   # Set DEBUG_LOG to 1 to enable debug output.
-  COLOR_GREEN='\e[1;32m'
-  COLOR_YELOW='\e[1;33m'
-  COLOR_BLUE='\e[1;34m'
-  COLOR_RED='\e[0;31m'
-  COLOR_GRAY='\e[1;30m'
-  COLOR_NC='\e[0m'
+  COLOR_GREEN='\033[1;32m'
+  COLOR_YELOW='\033[1;33m'
+  COLOR_BLUE='\033[1;34m'
+  COLOR_RED='\033[0;31m'
+  COLOR_GRAY='\033[1;30m'
+  COLOR_NC='\033[0m'
   GAWK_LOG_SCRIPT="$(dirname "$(readlink -f "$BASH_SOURCE")")/color-log.gawk"
 
   # Set the LOG_FILE location if it hasn't already been set yet and create the log dir location
