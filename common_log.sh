@@ -20,9 +20,13 @@ if [ -z "$COMMON_LOG_SH_SOURCED" ]; then
   COLOR_NC='\033[0m'
   GAWK_LOG_SCRIPT="$(dirname "$(readlink -f "$BASH_SOURCE")")/color-log.gawk"
 
+  # Set the LOG_DIR location if it hasn't already been set
+  if [ -z "$LOG_DIR" ]; then
+    export LOG_DIR="$(dirname "$(readlink -f "$0")")/logs";
+  fi
   # Set the LOG_FILE location if it hasn't already been set yet and create the log dir location
   if [ -z "$LOG_FILE" ]; then
-    export LOG_FILE="$(dirname "$(readlink -f "$0")")/logs/$(basename $0 | sed -e 's/\.[^.]*$//')_$(hostname)_$(date +%F).log"
+    export LOG_FILE="$LOG_DIR/$(basename $0 | sed -e 's/\.[^.]*$//')_$(hostname)_$(date +%F).log"
   else
     LOG_FILE="$(readlink -f "$LOG_FILE")"
   fi
