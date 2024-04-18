@@ -12,13 +12,12 @@ if [ -z "$COMMON_LOG_SH_SOURCED" ]; then
   COMMON_LOG_SH_SOURCED="Parsing common_log.sh"
 
   # Set DEBUG_LOG to 1 to enable debug output.
-  COLOR_GREEN='\033[1;32m'
   COLOR_YELOW='\033[1;33m'
   COLOR_BLUE='\033[1;34m'
   COLOR_RED='\033[0;31m'
   COLOR_GRAY='\033[1;30m'
   COLOR_NC='\033[0m'
-  GAWK_LOG_SCRIPT="$(dirname "$(readlink -f "$BASH_SOURCE")")/color-log.gawk"
+  GAWK_LOG_SCRIPT="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/color-log.gawk"
 
   # Set the LOG_DIR location if it hasn't already been set
   if [ -z "$LOG_DIR" ]; then
@@ -31,23 +30,23 @@ if [ -z "$COMMON_LOG_SH_SOURCED" ]; then
     LOG_FILE="$(readlink -f "$LOG_FILE")"
   fi
   if [ ! -d "$(dirname "$LOG_FILE")" ]; then
-    echo "Creating log dir '"$(dirname "$LOG_FILE")"'"
+    echo "Creating log dir '$(dirname "$LOG_FILE")'"
     mkdir -p "$(dirname "$LOG_FILE")"
   fi
 
   log() {
     LOGGER=$1
     case "$LOGGER" in
-      "ERROR") shift 1; echo -e "${COLOR_RED}$(date   '+%F %z:%H:%M:%S ')${LOGGER} [$(basename $0)]: $*${COLOR_NC}" ;;
-      "WARN")  shift 1; echo -e "${COLOR_YELOW}$(date '+%F %z:%H:%M:%S ')${LOGGER} [$(basename $0)]: $*${COLOR_NC}" ;;
-      "INFO")  shift 1; echo -e "${COLOR_BLUE}$(date  '+%F %z:%H:%M:%S ')${LOGGER} [$(basename $0)]: $*${COLOR_NC}" ;;
-      "DEBUG") shift 1; echo -e "${COLOR_GRAY}$(date  '+%F %z:%H:%M:%S ')${LOGGER} [$(basename $0)]: $*${COLOR_NC}" ;;
+      "ERROR") shift 1; echo -e "${COLOR_RED}$(date   '+%F %z:%H:%M:%S ')${LOGGER} [$(basename "$0")]: $*${COLOR_NC}" ;;
+      "WARN")  shift 1; echo -e "${COLOR_YELOW}$(date '+%F %z:%H:%M:%S ')${LOGGER} [$(basename "$0")]: $*${COLOR_NC}" ;;
+      "INFO")  shift 1; echo -e "${COLOR_BLUE}$(date  '+%F %z:%H:%M:%S ')${LOGGER} [$(basename "$0")]: $*${COLOR_NC}" ;;
+      "DEBUG") shift 1; echo -e "${COLOR_GRAY}$(date  '+%F %z:%H:%M:%S ')${LOGGER} [$(basename "$0")]: $*${COLOR_NC}" ;;
       *) 
         LOGGER="?"; 
-        echo "$(date '+%F %z:%H:%M:%S') ? [$(basename $0)]: $*" ;;
+        echo "$(date '+%F %z:%H:%M:%S') ? [$(basename "$0")]: $*" ;;
     esac
-    if [ ! -z "$LOG_FILE" ]; then
-      echo "$(date '+%F %z:%H:%M:%S') $LOGGER [$(basename $0)]: $*" >> "$LOG_FILE"
+    if [ -n "$LOG_FILE" ]; then
+      echo "$(date '+%F %z:%H:%M:%S') $LOGGER [$(basename "$0")]: $*" >> "$LOG_FILE"
     fi
   }
 
@@ -66,23 +65,23 @@ if [ -z "$COMMON_LOG_SH_SOURCED" ]; then
   }
 
   log_debug() {
-    log DEBUG $*
+    log DEBUG "$*"
   }
 
   log_info() {
-    log INFO $*
+    log INFO "$*"
   }
 
   log_error() {
-    log ERROR $*
+    log ERROR "$*"
   }
 
   log_warn() {
-    log WARN $*
+    log WARN "$*"
   }
 
   fail() {
-    log_error $*
+    log_error "$*"
     echo "$* - Check $LOG_FILE for details" >&2
     exit 1
   }

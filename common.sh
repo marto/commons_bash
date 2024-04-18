@@ -8,7 +8,8 @@ if [ -z "$COMMON_SH_SOURCED" ]; then
     source "$1" || error "Failed to load '$1'"
   }
 
-  load_scriplet "$(dirname $BASH_SOURCE)/common_log.sh"
+  # shellcheck source=common_log.sh
+  load_scriplet "$(dirname "${BASH_SOURCE[0]}")/common_log.sh"
 
 fi
 # syntax=sh vim: ts=2 sw=2 sts=2 expandtab hlsearch sr

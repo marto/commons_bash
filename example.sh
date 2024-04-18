@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $(dirname $0)/common.sh
+source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 log_error This is an error log level message
 log_warn  This is an warn log level message
