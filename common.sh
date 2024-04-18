@@ -5,6 +5,7 @@ if [ -z "$COMMON_SH_SOURCED" ]; then
   COMMON_SH_SOURCED="Parsing common.sh"
 
   load_scriplet() {
+    # shellcheck disable=SC1090
     source "$1" || error "Failed to load '$1'"
   }
 

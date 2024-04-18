@@ -21,11 +21,12 @@ if [ -z "$COMMON_LOG_SH_SOURCED" ]; then
 
   # Set the LOG_DIR location if it hasn't already been set
   if [ -z "$LOG_DIR" ]; then
-    export LOG_DIR="$(dirname "$(readlink -f "$0")")/logs";
+    LOG_DIR="$(dirname "$(readlink -f "$0")")/logs";
+    export LOG_DIR
   fi
   # Set the LOG_FILE location if it hasn't already been set yet and create the log dir location
   if [ -z "$LOG_FILE" ]; then
-    export LOG_FILE="$LOG_DIR/$(basename $0 | sed -e 's/\.[^.]*$//')_$(hostname)_$(date +%F).log"
+    LOG_FILE="$LOG_DIR/$(basename "$0" | sed -e 's/\.[^.]*$//')_$(hostname)_$(date +%F).log"
   else
     LOG_FILE="$(readlink -f "$LOG_FILE")"
   fi

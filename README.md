@@ -22,3 +22,11 @@ fail "Ok I'm failing and bailing out"
 
 echo "I can never get here!"
 ```
+
+# Local Dev Env Install
+We use [pre-commit](https://pre-commit.com/) to install pre-commit hooks to this repository and you should follow these instruction when making any changes to this repository:
+
+1. Follow [pre-commit](https://pre-commit.com/) on how to install pre-commit if you don't already have it installed. For the impatient...
+  * If using brew use `brew install pre-commit` is the simplest way.
+  * If on linux use `pip install pre-commit` then quit/reload your shell.
+2. After cloning this repository run `pre-commit install`.
